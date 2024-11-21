@@ -67,6 +67,10 @@ export async function getProducts(
   };
 }
 
+export async function addProduct(product: SelectProduct) {
+  await db.insert(products).values(product);
+}
+
 export async function deleteProductById(id: number) {
   await db.delete(products).where(eq(products.id, id));
 }
