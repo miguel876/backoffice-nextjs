@@ -13,6 +13,7 @@ import {
 } from 'drizzle-orm/pg-core';
 import { count, eq, ilike } from 'drizzle-orm';
 import { createInsertSchema } from 'drizzle-zod';
+import { CreateProduct } from 'interfaces/product';
 
 export const db = drizzle(neon(process.env.POSTGRES_URL!));
 
@@ -67,8 +68,16 @@ export async function getProducts(
   };
 }
 
-export async function addProduct(product: SelectProduct) {
-  await db.insert(products).values(product);
+export async function addProduct(product: CreateProduct) {
+  try {
+    await db.insert(products).values(product);
+  } catch (e) {
+    console.error(e);
+
+    if (e instanceof Error) {
+      throw new Error(e.message);
+    }
+  }
 }
 
 export async function deleteProductById(id: number) {

@@ -19,16 +19,19 @@ export const Input = ({
   error,
   helperText
 }: InputProps) => {
-  //TODO: Add error and helper text
   return (
-    <div className="grid w-full max-w-sm items-center gap-1.5">
+    <div className="grid w-full items-center gap-1.5 relative pb-5 mb-2">
       <Label htmlFor={name}>{label}</Label>
       <ShadCNInput
         type={type}
         id={name}
         name={name}
         placeholder={placeholder}
+        className={`w-full ${!!error && 'border-destructive'}`}
       />
+      {!!error && (
+        <p className="absolute bottom-0 text-xs text-destructive">{error}</p>
+      )}
     </div>
   );
 };

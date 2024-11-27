@@ -1,11 +1,13 @@
 import { z } from 'zod';
 
+const requiredError = 'The field is required';
+
 export const ProductSchema = z.object({
-  name: z.string(),
-  price: z.string(),
-  image_url: z.string(),
-  stock: z.number(),
-  available_at: z.string()
+  name: z.string().min(1, requiredError),
+  price: z.string().min(1, requiredError),
+  image_url: z.string().min(1, requiredError),
+  stock: z.string().min(1, requiredError),
+  available_at: z.string().min(1, requiredError)
 });
 
 export type ProductFormState =
